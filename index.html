@@ -490,7 +490,7 @@
         border-color: var(--border-glow);
         transform: scale(1.05);
     }
-    
+
     /* */
     .model-selector {
         position: relative;
@@ -519,7 +519,7 @@
         text-transform: uppercase;
         letter-spacing: 0.5px;
     }
-    
+
     .badge-pro { background: linear-gradient(135deg, #f6d365, #fda085); }
     .badge-flash { background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple)); }
     .badge-lite { background: linear-gradient(135deg, #56ab2f, #a8e063); }
@@ -558,7 +558,7 @@
         transition: background 0.2s ease;
         border-bottom: 1px solid var(--border-subtle);
     }
-    
+
     .model-option:last-child {
         border-bottom: none;
     }
@@ -681,14 +681,14 @@
         }
     }
 
-    /* .message-header {
+    .message-header {
         display: flex;
         align-items: center;
         gap: 0.875rem;
         font-weight: 600;
         margin-bottom: 0.875rem;
         font-size: 0.9rem;
-    } */
+    }
 
     .message-avatar {
         width: 32px;
@@ -712,16 +712,42 @@
         font-weight: 400;
     }
 
-    /* .message-actions {
+    /* Action button container inside the message content */
+    .message-actions-panel {
+        position: absolute;
+        bottom: 0.5rem; /* Distance from bottom edge */
+        right: 0.5rem;  /* Distance from right edge */
         display: flex;
         gap: 0.375rem;
+        padding: 0.5rem;
+        border-radius: 12px;
+        background: rgba(10, 1, 24, 0.5); /* Semi-transparent background for contrast */
+        backdrop-filter: blur(8px);
         opacity: 0;
         transition: opacity 0.3s ease;
     }
 
-    .chat-message:hover .message-actions {
+    /* Ensure actions are visible on hover of the whole message */
+    .chat-message:hover .message-actions-panel {
         opacity: 1;
-    } */
+    }
+
+    /* Tweak individual action buttons for this placement */
+    .message-actions-panel .action-btn {
+        width: 24px; /* Slightly smaller buttons */
+        height: 24px;
+        background: none;
+        border: none;
+    }
+
+    .message-actions-panel .action-btn:hover {
+        background: var(--glass-strong);
+        transform: none; /* Remove scale transform */
+    }
+
+    /* Remove old header action styles which are no longer needed */
+    .message-actions { display: none; }
+
 
     .action-btn {
         width: 28px;
@@ -760,40 +786,6 @@
         overflow: hidden;
         font-size: 0.95rem;
     }
-    /* --- NEW CSS for Actions Panel (Moved to Bottom Right) --- */
-
-/* Action Button Container inside the bubble */
-.message-actions-panel {
-    position: absolute;
-    bottom: 0.5rem; /* Distance from bottom edge */
-    right: 0.5rem;  /* Distance from right edge */
-    display: flex;
-    gap: 0.375rem;
-    padding: 0.5rem;
-    border-radius: 12px;
-    background: rgba(10, 1, 24, 0.5); /* Semi-transparent background for contrast */
-    backdrop-filter: blur(8px);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-/* Ensure actions are visible on hover of the whole message */
-.chat-message:hover .message-actions-panel {
-    opacity: 1;
-}
-
-/* Tweak individual action buttons for this placement */
-.message-actions-panel .action-btn {
-    width: 24px; /* Slightly smaller buttons */
-    height: 24px;
-    background: none;
-    border: none;
-}
-
-.message-actions-panel .action-btn:hover {
-    background: var(--glass-strong);
-    transform: none; /* Remove scale transform */
-}
     .message-content p {
         margin-bottom: 1rem;
     }
@@ -909,17 +901,6 @@
         margin: 0 auto;
     }
 
-    .suggestion-card {
-        padding: 1.5rem;
-        background: var(--glass-strong);
-        backdrop-filter: blur(20px);
-        border: 1px solid var(--border-subtle);
-        border-radius: 16px;
-        cursor: pointer;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        text-align: left;
-    }
-
     .suggestion-card:hover {
         background: var(--glass-elevated);
         border-color: var(--border-glow);
@@ -975,7 +956,7 @@
         border-radius: 20px;
         border: 1px solid var(--border-subtle);
         /* Adjusted padding for cleaner layout with file preview container */
-        padding: 0.75rem 0.75rem 0.75rem 1.25rem; 
+        padding: 0.75rem 0.75rem 0.75rem 1.25rem;
         transition: all 0.3s ease;
         gap: 0.75rem;
         position: relative;
@@ -1094,18 +1075,18 @@
         animation: loadingPulse 1.2s ease-in-out infinite;
     }
 
- .loading-dot:nth-child(1) {
-    animation-delay: 0s;
-    background: var(--accent-cyan);
-}
-.loading-dot:nth-child(2) { 
-    animation-delay: 0.2s;
-    background: var(--accent-magenta);
-}
-.loading-dot:nth-child(3) { 
-    animation-delay: 0.4s; 
-    background: var(--accent-purple); 
-}
+    .loading-dot:nth-child(1) {
+        animation-delay: 0s;
+        background: var(--accent-cyan);
+    }
+    .loading-dot:nth-child(2) {
+        animation-delay: 0.2s;
+        background: var(--accent-magenta);
+    }
+    .loading-dot:nth-child(3) {
+        animation-delay: 0.4s;
+        background: var(--accent-purple);
+    }
 
     @keyframes loadingPulse {
         0%, 80%, 100% {
@@ -1166,7 +1147,7 @@
         -webkit-text-fill-color: transparent;
         background-clip: text;
     }
-    /* Move message actions to bottom - ADD THIS to your existing CSS */
+
     .message-header {
         display: flex;
         align-items: center;
@@ -1174,23 +1155,6 @@
         font-weight: 600;
         margin-bottom: 0.875rem;
         font-size: 0.9rem;
-        /* Remove justify-content if it exists */
-    }
-
-    /* Place actions at bottom with separator line */
-    .message-actions {
-        display: flex;
-        gap: 0.5rem;
-        margin-top: 1rem;
-        padding-top: 1rem;
-        border-top: 1px solid var(--border-subtle);
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-
-    /* Show actions on hover */
-    .chat-message:hover .message-actions {
-        opacity: 1;
     }
 
     .modal-content p {
@@ -1270,7 +1234,7 @@
         color: #fca5a5;
         font-size: 0.875rem;
     }
-
+    
     /* ------------------------------------------------------------------- */
     /* --- NEW/UPDATED STYLES FOR VOICE ANIMATION AND FILE PREVIEW --- */
     /* ------------------------------------------------------------------- */
@@ -1373,30 +1337,50 @@
         color: var(--accent-magenta);
     }
 
+    /* ------------------------------------------------------------------- */
+    /* --- MOBILE RESPONSIVENESS FIXES (FOR BOTH MOBILE & LAPTOP) --- */
+    /* ------------------------------------------------------------------- */
 
     @media (max-width: 768px) {
+        /* 1. FORCE HIDING THE SIDEBAR by default on small screens */
         .sidebar {
             transform: translateX(-100%);
+            /* IMPORTANT: Set width to 100% when visible on small screens */
+            width: 100vw; 
         }
 
+        /* 2. When sidebar is explicitly toggled on mobile, show it fully */
         .sidebar.visible {
             transform: translateX(0);
         }
-
+        
         .sidebar.hidden {
             transform: translateX(-100%);
         }
 
+        /* 3. RESET the main content area's margin to 0 */
         .main-content {
-            margin-left: 0;
+            margin-left: 0 !important; /* Force it to take full width */
         }
 
         .main-content.expanded {
             margin-left: 0;
         }
 
+        /* 4. HIDE the hover zone, as it interferes with touch */
         .sidebar-hover-zone {
             display: none;
+        }
+        
+        /* Optional: Tighter padding on mobile header/footer */
+        .main-header {
+            padding: 1rem 1.25rem;
+        }
+        .chat-footer {
+            padding: 1rem 1.25rem;
+        }
+        .chat-container {
+            padding: 1.5rem 1.25rem;
         }
     }
 </style>
@@ -1515,7 +1499,6 @@
                     </div>
                 </div>
                 <div class="user-profile" tabindex="0" role="button" aria-label="User profile">
-                    <img src="https://www.pxfuel.com/en/query?q=iron+man+group" alt="User Avatar">
                     <div class="user-info">
                         <div class="user-name"></div>
                         <div class="user-status">
@@ -1733,6 +1716,11 @@
         else { isSidebarPinned = false; hideSidebar(); }
     });
     if (window.innerWidth > 768) { setTimeout(hideSidebar, 1500); }
+     else {
+    // Ensure sidebar starts hidden on mobile (critical fix)
+    elements.sidebar.classList.add('hidden');
+    elements.mainContent.classList.remove('expanded');
+    }
 
     // ========================
     // INITIALIZATION
