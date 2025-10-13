@@ -1342,47 +1342,89 @@
     /* ------------------------------------------------------------------- */
 
     @media (max-width: 768px) {
-        /* 1. FORCE HIDING THE SIDEBAR by default on small screens */
-        .sidebar {
-            transform: translateX(-100%);
-            /* IMPORTANT: Set width to 100% when visible on small screens */
-            width: 100vw; 
-        }
-
-        /* 2. When sidebar is explicitly toggled on mobile, show it fully */
-        .sidebar.visible {
-            transform: translateX(0);
-        }
-        
-        .sidebar.hidden {
-            transform: translateX(-100%);
-        }
-
-        /* 3. RESET the main content area's margin to 0 */
-        .main-content {
-            margin-left: 0 !important; /* Force it to take full width */
-        }
-
-        .main-content.expanded {
-            margin-left: 0;
-        }
-
-        /* 4. HIDE the hover zone, as it interferes with touch */
-        .sidebar-hover-zone {
-            display: none;
-        }
-        
-        /* Optional: Tighter padding on mobile header/footer */
-        .main-header {
-            padding: 1rem 1.25rem;
-        }
-        .chat-footer {
-            padding: 1rem 1.25rem;
-        }
-        .chat-container {
-            padding: 1.5rem 1.25rem;
-        }
+    /* ------------------------------------------------------------- */
+    /* CORE RESPONSIVENESS FIXES (Keep these to prevent horizontal scroll) */
+    /* ------------------------------------------------------------- */
+    .sidebar {
+        transform: translateX(-100%);
+        width: 100vw; 
     }
+    .sidebar.visible {
+        transform: translateX(0);
+    }
+    .main-content {
+        margin-left: 0 !important; 
+    }
+    .main-content.expanded {
+        margin-left: 0;
+    }
+    .sidebar-hover-zone {
+        display: none;
+    }
+    
+    /* ------------------------------------------------------------- */
+    /* ALIGNMENT & VISIBILITY CHANGES (To match the desired UI) */
+    /* ------------------------------------------------------------- */
+    
+    /* HEADER CHANGES: Minimize elements for a clean top bar */
+    .main-header {
+        padding: 0.75rem 1.25rem; /* Reduced padding */
+    }
+    
+    /* Hide the large model selector and complex side info, keeping only the menu/profile */
+    .model-selector {
+        display: none;
+    }
+    
+    /* FOOTER CHANGES: Remove helper text/stats and center input */
+    .chat-footer {
+        padding: 1rem 1.25rem;
+    }
+    
+    /* Hide the entire footer info bar (note and stats) */
+    .footer-info {
+        display: none;
+    }
+    
+    /* Ensure the input wrapper centers the input container */
+    .input-wrapper {
+        align-items: center;
+        max-width: 600px; /* Center the input container within the footer */
+    }
+    
+    /* Input field alignment tweak for the mobile view */
+    .input-container {
+        /* Revert to horizontal flex flow for the input row on mobile */
+        flex-direction: row; 
+        align-items: flex-end;
+        
+        /* Center the input area by giving it max-width */
+        max-width: 95vw; 
+        
+        /* Reduce gap padding to bring icons closer to text */
+        gap: 0.5rem; 
+        
+        /* Center the "Ask me anything..." text slightly */
+        padding: 0.75rem 0.75rem 0.75rem 1rem;
+    }
+
+    /* CHAT BUBBLE CHANGES: Clean up user message headers */
+    /* Hide the Avatar and time stamp in the User Message header to match minimal style */
+    .chat-message.user-message .message-header {
+        display: none; 
+    }
+
+    /* Move User message bubble closer to the left edge since the avatar is gone */
+    .chat-message.user-message .message-content {
+        margin-left: 0;
+        margin-top: 0.5rem; /* Reduce vertical space after the system message header */
+    }
+
+    /* Ensure Gemini avatar and text remain visible */
+    .chat-message.gemini-message .message-header {
+        display: flex;
+    }
+}
 </style>
 </head>
 <body>
